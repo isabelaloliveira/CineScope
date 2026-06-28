@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineScope</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="#" onclick="showHome()">CINE<span>SCOPE</span></a>
+      <nav class="nav-tabs">
+        <button class="nav-btn active" id="btn-discover" onclick="setTab('discover')">Descobrir</button>
+        <button class="nav-btn" id="btn-favorites" onclick="setTab('favorites')">
+          Favoritos <span class="fav-count" id="fav-count">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO (visível só na home) -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Filmes & Séries</p>
+      <h1 class="hero-title">Descubra seu<br /><em>próximo favorito.</em></h1>
+      <p class="hero-sub">Busque por título, filtre por gênero e salve o que não pode perder.</p>
+      <div class="search-bar hero-search">
+        <input type="text" id="hero-input" placeholder="Buscar filme ou série..." autocomplete="off" />
+        <button onclick="triggerHeroSearch()">Buscar</button>
+      </div>
+    </div>
+    <div class="hero-fade"></div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- DISCOVER TAB -->
+    <div id="tab-discover" class="tab active">
+
+      <!-- BARRA DE BUSCA (após hero) -->
+      <div class="sticky-bar" id="sticky-bar">
+        <div class="sticky-inner">
+          <div class="search-bar compact">
+            <input type="text" id="search-input" placeholder="Buscar..." autocomplete="off" />
+            <button onclick="search()">Buscar</button>
+          </div>
+          <div class="filter-row" id="genre-filters">
+            <button class="genre-chip active" data-genre="">Todos</button>
+            <!-- chips gerados pelo JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TRENDING (home) -->
+      <section class="section" id="section-trending">
+        <h2 class="section-title">Em alta agora</h2>
+        <div class="grid" id="grid-trending"></div>
+      </section>
+
+      <!-- RESULTADOS -->
+      <section class="section hidden" id="section-results">
+        <h2 class="section-title" id="results-title">Resultados</h2>
+        <div class="grid" id="grid-results"></div>
+        <div class="load-more-wrap" id="load-more-wrap">
+          <button class="btn-load-more" id="btn-load-more" onclick="loadMore()">Carregar mais</button>
+        </div>
+      </section>
+
+      <div class="empty-state hidden" id="empty-state">
+        <span>🎬</span>
+        <p>Nenhum resultado encontrado.</p>
+        <small>Tente outro título ou ajuste os filtros.</small>
+      </div>
+
+    </div>
+
+    <!-- FAVORITES TAB -->
+    <div id="tab-favorites" class="tab">
+      <div class="section">
+        <h2 class="section-title">Seus favoritos</h2>
+        <div class="grid" id="grid-favorites"></div>
+        <div class="empty-state hidden" id="fav-empty">
+          <span>🌟</span>
+          <p>Nenhum favorito ainda.</p>
+          <small>Clique no ✦ de qualquer filme ou série para salvar.</small>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay hidden" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-body">
+        <img class="modal-poster" id="modal-poster" src="" alt="" />
+        <div class="modal-info">
+          <div class="modal-meta" id="modal-meta"></div>
+          <h2 class="modal-title" id="modal-title"></h2>
+          <div class="modal-genres" id="modal-genres"></div>
+          <p class="modal-overview" id="modal-overview"></p>
+          <div class="modal-actions">
+            <button class="btn-fav-modal" id="btn-fav-modal" onclick="toggleFavFromModal()">
+              ✦ Adicionar aos favoritos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
